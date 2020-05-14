@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"regexp"
 	"time"
 
@@ -77,7 +78,7 @@ func cfgMiddleware() {
 	logMiddleware := &mvc.Middleware{
 		Name: "LOG",
 		Handler: func(in *mvc.Input) (*mvc.Output, bool) {
-			fmt.Println("Hello -->", in.URL, in.Method, in.GetHeader("user-agent"))
+			fmt.Printf("LOG [%s:%s] [UA=%s]\n", in.Method, in.URL, in.GetHeader("user-agent"))
 			return nil, false
 		},
 		Enable:   true,
@@ -102,9 +103,12 @@ func cfgMiddleware() {
 		Name:   "AUTH",
 		Enable: true,
 		Handler: func(in *mvc.Input) (*mvc.Output, bool) {
+			fmt.Println("Exec AUTH middleware ..", in.URL)
 			if ck := in.GetCookie("token"); ck == nil {
+				fmt.Println("token is nil, redirect")
 				out := mvc.NewOutput()
-				out.Redirect("/", 302)
+				out.CookieAdd(&http.Cookie{Name: "token", Value: "123456", Expires: time.Now().Add(time.Minute * 5), Path: "/"})
+				out.Redirect("/admin/login?reffer="+in.URL, 302)
 				return out, true
 			}
 			return nil, false

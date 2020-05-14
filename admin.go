@@ -16,8 +16,12 @@ func (*admin) Get_login(in *mvc.Input) *mvc.Output {
 	out := mvc.NewOutput()
 	in.ParseParam(0)
 	year := in.GetUrlInt32("year", 2000)
-	out.Text([]byte(fmt.Sprintf("张三，%d年，你好啊!", year)))
-
+	fmt.Println("收到参数 year=", year)
+	if in.GetCookie("token") != nil {
+		out.HtmlView("views/area/admin/login", nil, nil, `已登记，<a href="./index">去聊天</a>`)
+	} else {
+		out.HtmlView("views/area/admin/login", nil, nil, `未登记，<a href="./index">去登记</a>`)
+	}
 	return out
 }
 func (*admin) Post_login(in *mvc.Input) *mvc.Output {

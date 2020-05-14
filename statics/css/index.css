@@ -1,0 +1,13 @@
+body{
+    margin:0;
+    padding:0;
+    font-size:12px;
+    line-height:1;
+    box-sizing:border-box;
+}
+body > div{
+    width:90%;
+    margin:0 auto 7px auto;
+    box-shadow:2px 3px 5px #000;
+    border:solid 1px #f60;
+}

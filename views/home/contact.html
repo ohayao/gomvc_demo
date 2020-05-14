@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Hello this Title</title>
+    </head>
+    <body>
+        <div>HEADER<hr></div>
+        {{template "header"}}
+        <div>taaat<hr></div>
+        {{template "taaat"}}
+        <div>mtxt<hr></div>
+        {{template "mtxt"}}
+        <hr>
+        <div>This is Body<hr></div>
+        Hello this Body [Contact html]!{{"Good!!" |Hello}}{{Hello "GOMVC"}}
+        <b>{{Test}}</b>
+        {{.}} {{.Times}}
+        <hr>
+        <div>FOOTER<hr></div>
+        {{template "footer"}}
+    </body>
+</html>

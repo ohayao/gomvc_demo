@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聊天室</title>
+    <link rel="stylesheet" href="/css/ws.css">
+</head>
+<body>
+    <input type="text" id="room" placeholder="输入房间号">
+    <input type="text" id="uid" placeholder="输入用户名">
+    <input type="button" value="连接服务器" id="connect">
+    <div id="content">
+        <div contenteditable="true" id="input" placeholder="请输入要发送的消息"></div>
+        <div id="submit">发送 (Ctrl+Enter)</div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="/js/ws.js"></script>
+</body>
+</html>

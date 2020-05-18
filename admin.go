@@ -26,8 +26,23 @@ func (*admin) Get_login(in *mvc.Input) *mvc.Output {
 }
 func (*admin) Post_login(in *mvc.Input) *mvc.Output {
 	out := mvc.NewOutput()
+	in.ParseParam(5 << 20) //5M限制
+	f := in.SaveFormFile("file1", "./temp/upload/", "123456", []string{".txt", ".md"})
+	if f.Err != nil {
+		fmt.Println("上传单个文件失败")
+	} else {
+		fmt.Println("上传单个文件成功", f.Size, f.OriginName, f.ReturnName)
+	}
+	fs, err := in.SaveFormFiles("file2", "./temp/upload", []string{".txt", ".md", ".png"})
+	if err != nil {
+		fmt.Println("上传多个文件失败", err)
+	} else {
+		fmt.Println("上传多个文件成功")
+		for _, ff := range fs {
+			fmt.Printf("%s %s %s %d,%v\n", ff.Ext, ff.OriginName, ff.ReturnName, ff.Size, ff.Err)
+		}
+	}
 	out.Text([]byte(`<p>张三，你好啊！</p>`))
-
 	return out
 }
 

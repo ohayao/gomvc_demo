@@ -18,8 +18,10 @@ func init() {
 }
 
 func main() {
-	//mvc.ShowRoutes()
-	err := mvc.Run(11225)
+	err := mvc.Run(&mvc.Config{
+		EnableHTTP: true,
+		HTTPPort:   11225,
+	})
 	fmt.Println(err)
 }
 
